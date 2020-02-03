@@ -1,8 +1,10 @@
 # coding: utf-8
 
 
-import constants as c
+from constants import *
 from os import path
+import pygame
+from pygame.locals import *
 
 
 class Grid():
@@ -28,13 +30,24 @@ class Grid():
                 structure_grid.append(line_grid)
         self.structure = structure_grid
 
+    def display(self):
+        """
+        display the labyrinth
+        """
+        wall = pygame.image.load()
+
     @property
     def filePath(self):
         path_file = path.dirname(path.dirname(__file__))
-        return path.join(path_file, c.PATH_GRID, self.file)
+        return path.join(path_file, 'grid', self.file)
 
 
-print(c.NB_SPRITES)
-grille = Grid('grid.txt')
-grille.generate()
-print(grille.structure)
+def main():
+    print("Hello Mac Gyver")
+    grille = Grid('grid.txt')
+    grille.generate()
+    print(grille.structure)
+
+
+if __name__ == "__main__":
+    main()
