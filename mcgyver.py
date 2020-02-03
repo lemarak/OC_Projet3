@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-import labyrinthe.constants as c
+# import labyrinthe.constants as c
 from labyrinthe.grid import *
 
 
