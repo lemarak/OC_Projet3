@@ -7,7 +7,7 @@ SIZE_SPRITE = 20
 WINDOW_SIZE = NB_SPRITES * SIZE_SPRITE
 
 # folders
-PATH_PICTURES = "/pictures/"
+PATH_PICTURES = "pictures/"
 PATH_GRID = "grid/"
 
 # pictures address"

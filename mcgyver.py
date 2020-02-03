@@ -7,7 +7,7 @@
 import pygame as py
 
 import labyrinthe.grid as grid
-import constants
+import constants as c
 
 
 def main():
@@ -15,9 +15,9 @@ def main():
 
     # py.init()
 
-    window = py.display.set_mode((constants.WINDOW_SIZE,
-                                  constants.WINDOW_SIZE))
-    py.display.set_caption(constants.TXT_TITLE)
+    window = py.display.set_mode((c.WINDOW_SIZE,
+                                  c.WINDOW_SIZE))
+    py.display.set_caption(c.TXT_TITLE)
 
     grille = grid.Grid('grid.txt')
     grille.generate()

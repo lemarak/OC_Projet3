@@ -6,9 +6,7 @@
 
 class LabyObject:
 
-    """
-    classes to implement objects
-    """
+    """    classes to implement objects    """
 
     def __init__(self, name):
         """    constructor    """
