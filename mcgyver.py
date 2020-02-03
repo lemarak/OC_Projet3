@@ -1,15 +1,28 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-# import labyrinthe.constants as c
-from labyrinthe.grid import *
+"""    Main program    """
+
+
+import pygame as py
+
+import labyrinthe.grid as grid
+import constants
 
 
 def main():
-    print("Hello Mac Gyver")
-    grille = Grid('grid.txt')
+    """    main program    """
+
+    # py.init()
+
+    window = py.display.set_mode((constants.WINDOW_SIZE,
+                                  constants.WINDOW_SIZE))
+    py.display.set_caption(constants.TXT_TITLE)
+
+    grille = grid.Grid('grid.txt')
     grille.generate()
     print(grille.structure)
+    grille.display(window)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,5 @@
 # coding: utf-8
 
-"""    the constants of the project    """
 
 # window
 NB_SPRITES = 15
