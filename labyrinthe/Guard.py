@@ -1,11 +1,12 @@
+#! /usr/bin/env python3
 # coding: utf-8
-
-"""
-Class to implement the guard
-"""
 
 
 class Guard:
+
+    """
+    Class to implement the guard
+    """
 
     def __init__(self):
         pass

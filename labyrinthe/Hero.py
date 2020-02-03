@@ -1,11 +1,12 @@
+#! /usr/bin/env python3
 # coding: utf-8
-
-"""
-class to implement the Hero (MacGyver)
-"""
 
 
 class Hero:
+
+    """
+    class to implement the Hero (MacGyver)
+    """
 
     def __init__(self):
         pass
