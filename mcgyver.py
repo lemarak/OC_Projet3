@@ -2,4 +2,9 @@
 # coding: utf-8
 
 
-print("Hello")
+def main():
+    print("Hello Mac Gyver")
+
+
+if __name__ == "__main__":
+    main()
