@@ -8,7 +8,7 @@ WINDOW_SIZE = NB_SPRITES * SIZE_SPRITE
 
 # folders
 PATH_PICTURES = "pictures/"
-PATH_LEVELS = "levels/"
+PATH_GRID = "grid/"
 
 # pictures address"
 IMG_ICON = PATH_PICTURES + "MacGyver.png"
