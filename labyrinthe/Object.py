@@ -1,5 +1,12 @@
 # coding: utf-8
 
 
+"""
+classes to implement objects
+"""
+
+
 class Object:
-    pass
+
+    def init(self):
+        pass
