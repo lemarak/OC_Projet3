@@ -1,9 +1,9 @@
 #! /usr/bin/env python3
 # coding: utf-8
+print('position : __file__={0:<35} | __name__={1:<20} | __package__={2:<20}'.format(__file__,__name__,str(__package__)))
+"""    Class Position, you see me ?    """
 
-"""    Class Position    """
-
-from .. import constants as c
+from mcgyver.common import config as c
 
 
 class Position:

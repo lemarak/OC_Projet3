@@ -3,10 +3,16 @@
 
 """    Main program    """
 
+import sys
 import pygame as py
+from pygame import locals as pyloc
 
-import labyrinth.constants as c
-import labyrinth.functions as f
+from mcgyver.common import config as c
+from mcgyver.common import functions as f
+
+
+sys.path.append("..")
+sys.path.append(".")
 
 
 def main():
@@ -27,7 +33,10 @@ def main():
 
     progress = 1
     while progress:
-        progress = int(input())
+        for event in py.event.get():
+            if event.type == pyloc.QUIT:
+                py.quit()
+                progress = 0
 
     py.quit()  # pylint: disable=maybe-no-member
 
