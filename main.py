@@ -21,9 +21,13 @@ def main():
     # generate the structure of the labyrinth from a text file
     path_file_structure = f.grid_file_path("grid.txt")
     structure = f.generate_structure(path_file_structure)
+    print([pos for pos in structure])
 
-    print(structure)
     f.display_labyrinth(surface, structure)
+
+    progress = 1
+    while progress:
+        progress = int(input())
 
     py.quit()  # pylint: disable=maybe-no-member
 
