@@ -5,23 +5,27 @@
 
 import pygame as py
 
-import labyrinth.classes.grid as grid
 import labyrinth.constants as c
+import labyrinth.functions as f
 
 
 def main():
     """    main program    """
 
-    # py.init()
+    py.init()  # pylint: disable=maybe-no-member
 
-    window = py.display.set_mode((c.WINDOW_SIZE,
-                                  c.WINDOW_SIZE))
+    surface = py.display.set_mode((c.WINDOW_SIZE,
+                                   c.WINDOW_SIZE))
     py.display.set_caption(c.TXT_TITLE)
 
-    grille = grid.Grid('grid.txt')
-    grille.generate()
-    print(grille.structure)
-    grille.display(window)
+    # generate the structure of the labyrinth from a text file
+    path_file_structure = f.grid_file_path("grid.txt")
+    structure = f.generate_structure(path_file_structure)
+
+    print(structure)
+    f.display_labyrinth(surface, structure)
+
+    py.quit()  # pylint: disable=maybe-no-member
 
 
 if __name__ == "__main__":
