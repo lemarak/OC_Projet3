@@ -3,11 +3,10 @@
 
 """    Main program    """
 
-
 import pygame as py
 
-import labyrinthe.grid as grid
-import constants as c
+import labyrinth.classes.grid as grid
+import labyrinth.constants as c
 
 
 def main():

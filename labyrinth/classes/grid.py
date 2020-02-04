@@ -4,11 +4,11 @@
 """    Class Grid for create and display labyrinth    """
 
 from os import path
-import pygame
+import pygame as py
 import pygame.locals
 
-import constants as c
-import functions as f
+from .. import constants as c
+from .. import functions as f
 
 
 class Grid():
@@ -31,12 +31,11 @@ class Grid():
                 structure_grid.append(line_grid)
         self.structure = structure_grid
 
-    def display(self, window):
+    def display(self, surface_laby):
         """    display the labyrinth    """
 
         print("Grid :", path.dirname(path.dirname(__file__)))
-        wall = pygame.image.load(f.picture_file_path(c.IMG_WALL)).convert()
-        # wall = pygame.image.load("./pictures/floor-tiles-20x20.png").convert()
+        wall = py.image.load(f.picture_file_path(c.IMG_WALL)).convert()
 
         num_row = 0
         for row in self.structure:
@@ -45,7 +44,7 @@ class Grid():
                 pos_x = num_cell * c.SIZE_SPRITE
                 pos_y = num_row * c.SIZE_SPRITE
                 if sprite == 'm':
-                    window.blit(wall, (pos_x, pos_y), (40, 0, 20, 20))
+                    surface_laby.blit(wall, (pos_x, pos_y), (40, 0, 20, 20))
                 num_cell += 1
             num_row += 1
 
@@ -57,8 +56,22 @@ class Grid():
 
     @property
     def grid_file_path(self):
-        """Property who gives the path of grid.txt,
+        """Return the path of grid.txt,
            structure of the labyrinth"""
 
         path_file = path.dirname(path.dirname(__file__))
         return path.join(path_file, c.PATH_GRID, self.file)
+
+
+if __name__ == "__main__":
+
+    # py.init()
+
+    window = py.display.set_mode((c.WINDOW_SIZE,
+                                  c.WINDOW_SIZE))
+    py.display.set_caption(c.TXT_TITLE)
+
+    grille = Grid('grid.txt')
+    grille.generate()
+    print(grille.structure)
+    grille.display(window)
