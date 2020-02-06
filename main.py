@@ -3,16 +3,12 @@
 
 """    Main program    """
 
-import sys
 import pygame as py
-from pygame import locals as pyloc
 
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
-
-
-sys.path.append("..")
-sys.path.append(".")
+from mcgyver.labyrinth import hero
+from mcgyver.labyrinth import guard
 
 
 def main():
@@ -20,23 +16,38 @@ def main():
 
     py.init()  # pylint: disable=maybe-no-member
 
-    surface = py.display.set_mode((c.WINDOW_SIZE,
-                                   c.WINDOW_SIZE))
+    # labyrinth initialisation
+    map_laby = py.display.set_mode((c.WINDOW_SIZE,
+                                    c.WINDOW_SIZE))
     py.display.set_caption(c.TXT_TITLE)
+    icon = py.image.load(f.picture_file_path(c.IMG_ICON)).convert()
+    py.display.set_icon(icon)
 
     # generate the structure of the labyrinth from a text file
     path_file_structure = f.grid_file_path("grid.txt")
     structure = f.generate_structure(path_file_structure)
-    print([pos for pos in structure])
 
-    f.display_labyrinth(surface, structure)
+    # display map structure
+    f.display_map(map_laby, structure)
 
-    progress = 1
+    # initialize, position and display the Hero
+    index_position_hero = [pos.type_sprite for pos in structure].index('H')
+    mcgyver = hero.Hero(structure[index_position_hero], map_laby)
+    mcgyver.display()
+
+    # initialize, position and display the Guard
+    index_position_guard = [pos.type_sprite for pos in structure].index('G')
+    bad_guy = guard.Guard(structure[index_position_guard], map_laby)
+    bad_guy.display()
+
+    progress = True
     while progress:
         for event in py.event.get():
-            if event.type == pyloc.QUIT:
-                py.quit()
-                progress = 0
+            if event.type == py.QUIT:
+                progress = False
+            if event.type == py.KEYDOWN:
+                if event.key == py.K_ESCAPE:
+                    progress = False
 
     py.quit()  # pylint: disable=maybe-no-member
 

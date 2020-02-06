@@ -15,14 +15,12 @@ from ..common import config as c
 def picture_file_path(img_file):
     """    returns the full path of the image file    """
     path_file = path.dirname(path.dirname(__file__))
-    print("path_file :", path_file)
-    print("path.join :", path.join(path_file, c.PATH_PICTURES, img_file))
     return path.join(path_file, c.PATH_PICTURES, img_file)
 
 
 def grid_file_path(file):
-    """Return the path of file = grid.txt,
-        structure of the labyrinth"""
+    """    Return the path of file = grid.txt,
+        structure of the labyrinth    """
 
     path_file = path.dirname(path.dirname(__file__))
     return path.join(path_file, c.PATH_GRID, file)
@@ -46,16 +44,23 @@ def generate_structure(file_path):
     return structure_grid
 
 
-def display_labyrinth(surface_laby, structure):
-    """    display the labyrinth    """
+def display_map(map_laby, structure):
+    """    display the labyrinth map   """
 
-    decor = py.image.load(picture_file_path(c.IMG_WALL)).convert()
+    decor = py.transform.scale2x(py.image.load(
+                picture_file_path(c.IMG_DECOR)
+                )).convert()
 
     for position in structure:
         if position.type_sprite == 'w':
-            surface_laby.blit(decor,
-                              (position.x_pixel, position.y_pixel),
-                              (40, 0, 20, 20)
-                              )
+            map_laby.blit(decor,
+                          (position.x_pixel, position.y_pixel),
+                          (c.X_WALL*2, c.Y_WALL*2, 40, 40)
+                          )
+        elif position.type_sprite == '0':
+            map_laby.blit(decor,
+                          (position.x_pixel, position.y_pixel),
+                          (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
+                          )
 
     py.display.flip()

@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # coding: utf-8
-print('position : __file__={0:<35} | __name__={1:<20} | __package__={2:<20}'.format(__file__,__name__,str(__package__)))
-"""    Class Position, you see me ?    """
+
+"""    Class Position    """
 
 from mcgyver.common import config as c
 
@@ -19,7 +19,9 @@ class Position:
         self.type_sprite = type_sprite
 
     def __repr__(self):
-        string_to_format = "(x: {}, y: {}, x_pixel: {}, x_pixel: {}, type: {})"
+        string_to_format = "(x: {}, y: {}, x_pixel: {}, \
+                             x_pixel: {}, type_sprite: {})"
+
         return string_to_format.format(self.x_sprite,
                                        self.y_sprite,
                                        self.x_pixel,
