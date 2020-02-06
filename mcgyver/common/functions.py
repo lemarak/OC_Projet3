@@ -47,20 +47,22 @@ def generate_structure(file_path):
 def display_map(map_laby, structure):
     """    display the labyrinth map   """
 
-    decor = py.transform.scale2x(py.image.load(
-                picture_file_path(c.IMG_DECOR)
-                )).convert()
+    decor = py.transform.scale2x(
+        py.image.load(
+            picture_file_path(c.IMG_DECOR)
+        )).convert()
 
     for position in structure:
+        sprite_position = None
         if position.type_sprite == 'w':
-            map_laby.blit(decor,
-                          (position.x_pixel, position.y_pixel),
-                          (c.X_WALL*2, c.Y_WALL*2, 40, 40)
-                          )
+            sprite_position = (c.X_WALL*2, c.Y_WALL*2, 40, 40)
         elif position.type_sprite == '0':
+            sprite_position = (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
+
+        if sprite_position:
             map_laby.blit(decor,
                           (position.x_pixel, position.y_pixel),
-                          (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
+                          (sprite_position)
                           )
 
     py.display.flip()

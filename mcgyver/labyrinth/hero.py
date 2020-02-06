@@ -25,3 +25,10 @@ class Hero:
         self.map_laby.blit(img_hero, (self.position.x_pixel,
                                       self.position.y_pixel))
         py.display.flip()
+
+    def move(self, direction):
+        new_pos = self.position.new_position(direction)
+        if new_pos.is_valide():
+            print(self.position.is_valide())
+            self.position = new_pos
+            self.display()

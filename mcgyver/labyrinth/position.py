@@ -2,6 +2,8 @@
 # coding: utf-8
 
 """    Class Position    """
+import copy
+import pygame as py
 
 from mcgyver.common import config as c
 
@@ -19,7 +21,7 @@ class Position:
         self.type_sprite = type_sprite
 
     def __repr__(self):
-        string_to_format = "(x: {}, y: {}, x_pixel: {}, \
+        string_to_format = "(x_sprite: {}, y_sprite: {}, x_pixel: {}, \
                              x_pixel: {}, type_sprite: {})"
 
         return string_to_format.format(self.x_sprite,
@@ -38,3 +40,22 @@ class Position:
     def y_pixel(self):
         """ position x in pixel """
         return self.y_sprite * c.SIZE_SPRITE
+
+    def new_position(self, direction):
+        """   return the new position excepted after move   """
+        new_pos = copy.copy(self)
+        if direction == py.K_RIGHT:
+            new_pos.x_sprite += 1
+        elif direction == py.K_LEFT:
+            new_pos.x_sprite -= 1
+        elif direction == py.K_UP:
+            new_pos.y_sprite -= 1
+        elif direction == py.K_DOWN:
+            new_pos.y_sprite += 1
+        return new_pos
+
+    def is_valide(self):
+        """    determines if position is valid    """
+        if self.type_sprite == "w":
+            return False
+        return True

@@ -40,6 +40,7 @@ def main():
     bad_guy = guard.Guard(structure[index_position_guard], map_laby)
     bad_guy.display()
 
+    # pymap event management
     progress = True
     while progress:
         for event in py.event.get():
@@ -48,6 +49,8 @@ def main():
             if event.type == py.KEYDOWN:
                 if event.key == py.K_ESCAPE:
                     progress = False
+                if event.key == py.K_RIGHT:
+                    mcgyver.move(event.key)
 
     py.quit()  # pylint: disable=maybe-no-member
 
