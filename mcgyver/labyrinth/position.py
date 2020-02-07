@@ -55,7 +55,6 @@ class Position:
         elif direction == py.K_DOWN:
             x_move = self.x_sprite
             y_move = self.y_sprite + 1
-        print(x_move, y_move)
         return x_move, y_move
 
     def is_valide(self):

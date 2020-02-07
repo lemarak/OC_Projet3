@@ -10,6 +10,7 @@ from mcgyver.common import functions as f
 from mcgyver.labyrinth import hero
 from mcgyver.labyrinth import guard
 from mcgyver.labyrinth import maplaby
+from mcgyver.labyrinth import mapobject
 
 
 def main():
@@ -41,6 +42,10 @@ def main():
     position_guard = map_laby.find_position('A')
     bad_guy = guard.Guard(position_guard, surface_laby)
     bad_guy.display()
+
+    # initialize, position and display the needle
+    needle = mapobject.Needle(map_laby)
+    needle.display()
 
     # pymap event management
     progress = True
