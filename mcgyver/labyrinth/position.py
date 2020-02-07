@@ -21,8 +21,8 @@ class Position:
         self.type_sprite = type_sprite
 
     def __repr__(self):
-        string_to_format = "(x_sprite: {}, y_sprite: {}, x_pixel: {}, \
-                             x_pixel: {}, type_sprite: {})"
+        string_to_format = ("(x_sprite: {}, y_sprite: {}, x_pixel: {},"
+                            "y_pixel: {}, type_sprite: {})")
 
         return string_to_format.format(self.x_sprite,
                                        self.y_sprite,

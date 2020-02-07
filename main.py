@@ -26,6 +26,7 @@ def main():
     # generate the structure of the labyrinth from a text file
     path_file_structure = f.grid_file_path("grid.txt")
     structure = f.generate_structure(path_file_structure)
+    print(structure)
 
     # display map structure
     f.display_map(map_laby, structure)
@@ -49,7 +50,7 @@ def main():
             if event.type == py.KEYDOWN:
                 if event.key == py.K_ESCAPE:
                     progress = False
-                if event.key == py.K_RIGHT:
+                if event.key in [py.K_RIGHT, py.K_LEFT, py.K_UP, py.K_DOWN]:
                     mcgyver.move(event.key)
 
     py.quit()  # pylint: disable=maybe-no-member
