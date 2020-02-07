@@ -2,7 +2,6 @@
 # coding: utf-8
 
 """    Class Position    """
-import copy
 import pygame as py
 
 from mcgyver.common import config as c
@@ -42,17 +41,22 @@ class Position:
         return self.y_sprite * c.SIZE_SPRITE
 
     def new_position(self, direction):
-        """   return the new position excepted after move   """
-        new_pos = copy.copy(self)
+        """   return the coordonnate, in map_laby structure,
+              of new position excepted after move   """
         if direction == py.K_RIGHT:
-            new_pos.x_sprite += 1
+            x_move = self.x_sprite + 1
+            y_move = self.y_sprite
         elif direction == py.K_LEFT:
-            new_pos.x_sprite -= 1
+            x_move = self.x_sprite - 1
+            y_move = self.y_sprite
         elif direction == py.K_UP:
-            new_pos.y_sprite -= 1
+            x_move = self.x_sprite
+            y_move = self.y_sprite - 1
         elif direction == py.K_DOWN:
-            new_pos.y_sprite += 1
-        return new_pos
+            x_move = self.x_sprite
+            y_move = self.y_sprite + 1
+        print(x_move, y_move)
+        return x_move, y_move
 
     def is_valide(self):
         """    determines if position is valid    """

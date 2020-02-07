@@ -9,6 +9,7 @@ from mcgyver.common import config as c
 from mcgyver.common import functions as f
 from mcgyver.labyrinth import hero
 from mcgyver.labyrinth import guard
+from mcgyver.labyrinth import maplaby
 
 
 def main():
@@ -16,29 +17,29 @@ def main():
 
     py.init()  # pylint: disable=maybe-no-member
 
-    # labyrinth initialisation
-    map_laby = py.display.set_mode((c.WINDOW_SIZE,
-                                    c.WINDOW_SIZE))
+    # labyrinth initialisation, surface_laby type(surface)
+    surface_laby = py.display.set_mode((c.WINDOW_SIZE,
+                                        c.WINDOW_SIZE))
     py.display.set_caption(c.TXT_TITLE)
     icon = py.image.load(f.picture_file_path(c.IMG_ICON)).convert()
     py.display.set_icon(icon)
 
     # generate the structure of the labyrinth from a text file
     path_file_structure = f.grid_file_path("grid.txt")
-    structure = f.generate_structure(path_file_structure)
-    print(structure)
+    map_laby = maplaby.MapLaby(path_file_structure)
+    map_laby.generate_structure()
 
     # display map structure
-    f.display_map(map_laby, structure)
+    map_laby.display_map(surface_laby)
 
     # initialize, position and display the Hero
-    index_position_hero = [pos.type_sprite for pos in structure].index('H')
-    mcgyver = hero.Hero(structure[index_position_hero], map_laby)
+    position_hero = map_laby.find_position('D')
+    mcgyver = hero.Hero(position_hero, surface_laby)
     mcgyver.display()
 
     # initialize, position and display the Guard
-    index_position_guard = [pos.type_sprite for pos in structure].index('G')
-    bad_guy = guard.Guard(structure[index_position_guard], map_laby)
+    position_guard = map_laby.find_position('A')
+    bad_guy = guard.Guard(position_guard, surface_laby)
     bad_guy.display()
 
     # pymap event management
@@ -50,8 +51,14 @@ def main():
             if event.type == py.KEYDOWN:
                 if event.key == py.K_ESCAPE:
                     progress = False
-                if event.key in [py.K_RIGHT, py.K_LEFT, py.K_UP, py.K_DOWN]:
-                    mcgyver.move(event.key)
+                elif event.key in [py.K_RIGHT, py.K_LEFT, py.K_UP, py.K_DOWN]:
+                    new_x, new_y = mcgyver.position.new_position(event.key)
+                    if map_laby.is_valide(new_x, new_y):
+                        new_position = map_laby.structure[new_y][new_x]
+                        map_laby.refresh_one_sprite(surface_laby,
+                                                    mcgyver.position)
+                        mcgyver.position = new_position
+                        mcgyver.display()
 
     py.quit()  # pylint: disable=maybe-no-member
 

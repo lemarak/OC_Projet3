@@ -18,17 +18,19 @@ class Hero:
     def __init__(self, position, map_laby):
         self.position = position
         self.map_laby = map_laby
+        self.nb_objets = 0
+        self.img_hero = py.image.load(
+            f.picture_file_path(c.IMG_HERO)).convert()
 
     def display(self):
         """    display the hero    """
-        img_hero = py.image.load(f.picture_file_path(c.IMG_HERO)).convert()
-        self.map_laby.blit(img_hero, (self.position.x_pixel,
-                                      self.position.y_pixel))
+        self.map_laby.blit(self.img_hero, (self.position.x_pixel,
+                                           self.position.y_pixel))
         py.display.flip()
 
     def move(self, direction):
+        """    move the Hero    """
         new_pos = self.position.new_position(direction)
         if new_pos.is_valide():
-            print(self.position.is_valide())
             self.position = new_pos
             self.display()
