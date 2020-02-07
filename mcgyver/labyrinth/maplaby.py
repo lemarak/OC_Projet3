@@ -83,7 +83,5 @@ class MapLaby():
                 or move_y < 0 or move_y >= c.NB_SPRITES:
             return False
         if self.structure[move_y][move_x].type_sprite == 'w':
-            print(self.structure[move_y][move_x].type_sprite)
             return False
-        print("test OK")
         return True
