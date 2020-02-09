@@ -3,32 +3,21 @@
 
 """    class to implements objects    """
 
-import random
 import pygame as py
 
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
-from mcgyver.labyrinth import position as pos
+# from mcgyver.labyrinth import position as pos
 
 
 class LabyObject:
     """    parent Class to implement objects    """
 
-    def __init__(self, map_laby):
+    def __init__(self, position, map_laby):
         """    constructor    """
+        self.position = position
         self.map_laby = map_laby
-        self.position = self.random_position()
         self.img_object = None
-
-    def random_position(self):
-        """    returns a random position for the object    """
-
-        structure_rows = [rows for rows in self.map_laby.structure]
-        structure_split = [positions for positions in structure_rows
-                           if positions.type_sprite == "0"]
-        print(structure_split)
-        position_num = random.randrange(0, len(structure_split))
-        return structure_split[position_num]
 
     def display(self):
         """    display object    """
@@ -38,19 +27,19 @@ class LabyObject:
 
 
 class Needle(LabyObject):
-    """    Child Class for needle    """
+    """    Child Class needle from LabyObject    """
 
-    def __init__(self, map_laby):
-        super().__init__(self)
+    def __init__(self, position, map_laby):
+        LabyObject.__init__(self, position, map_laby)
         self.img_object = py.image.load(
-            f.picture_file_path(c.IMG_NEEDLE)).convert_alpha()
+            f.picture_file_path(c.IMG_NEEDLE)).convert()
 
 
 class Tube(LabyObject):
     """    Child Class for tube    """
 
-    def __init__(self, map_laby):
-        super().__init__(self)
+    def __init__(self, position, map_laby):
+        LabyObject.__init__(self, position, map_laby)
         self.img_object = py.image.load(
             f.picture_file_path(c.IMG_TUBE)).convert_alpha()
 
@@ -58,7 +47,7 @@ class Tube(LabyObject):
 class Ether(LabyObject):
     """    Child Class for ether    """
 
-    def __init__(self, map_laby):
-        super().__init__(self)
+    def __init__(self, position, map_laby):
+        LabyObject.__init__(self, position, map_laby)
         self.img_object = py.image.load(
             f.picture_file_path(c.IMG_ETHER)).convert_alpha()

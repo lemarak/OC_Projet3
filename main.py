@@ -44,8 +44,19 @@ def main():
     bad_guy.display()
 
     # initialize, position and display the needle
-    needle = mapobject.Needle(map_laby)
+    position_aleatoire = map_laby.random_position()
+    needle = mapobject.Needle(position_aleatoire, surface_laby)
     needle.display()
+
+    # initialize, position and display the needle
+    position_aleatoire = map_laby.random_position()
+    tube = mapobject.Tube(position_aleatoire, surface_laby)
+    tube.display()
+
+    # initialize, position and display the needle
+    position_aleatoire = map_laby.random_position()
+    ether = mapobject.Ether(position_aleatoire, surface_laby)
+    ether.display()
 
     # pymap event management
     progress = True
