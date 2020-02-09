@@ -18,7 +18,7 @@ class Hero:
     def __init__(self, position, map_laby):
         self.position = position
         self.map_laby = map_laby
-        self.nb_objets = 0
+        self.nb_objects = 0
         self.img_hero = py.image.load(
             f.picture_file_path(c.IMG_HERO)).convert()
 

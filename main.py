@@ -48,12 +48,12 @@ def main():
     needle = mapobject.Needle(position_aleatoire, surface_laby)
     needle.display()
 
-    # initialize, position and display the needle
+    # initialize, position and display the tube
     position_aleatoire = map_laby.random_position()
     tube = mapobject.Tube(position_aleatoire, surface_laby)
     tube.display()
 
-    # initialize, position and display the needle
+    # initialize, position and display the ether
     position_aleatoire = map_laby.random_position()
     ether = mapobject.Ether(position_aleatoire, surface_laby)
     ether.display()
