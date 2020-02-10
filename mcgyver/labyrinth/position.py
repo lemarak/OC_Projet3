@@ -57,8 +57,8 @@ class Position:
             y_move = self.y_sprite + 1
         return x_move, y_move
 
-    def is_valide(self):
-        """    determines if position is valid    """
-        if self.type_sprite == "w":
-            return False
-        return True
+    # def is_valide(self):
+    #     """    determines if position is valid    """
+    #     if self.type_sprite == "w":
+    #         return False
+    #     return True

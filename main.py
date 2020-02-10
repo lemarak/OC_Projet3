@@ -58,6 +58,8 @@ def main():
     ether = mapobject.Ether(position_aleatoire, surface_laby)
     ether.display()
 
+    objects_array = [needle, tube, ether]
+
     # pymap event management
     progress = True
     while progress:
@@ -75,6 +77,12 @@ def main():
                                                     mcgyver.position)
                         mcgyver.position = new_position
                         mcgyver.display()
+                        mcgyver.check_object(objects_array)
+                        if mcgyver.position == bad_guy.position:
+                            if mcgyver.nb_objects == 3:
+                                print("******   WIN !!!   *****")
+                            else:
+                                print("******   DEAD !!!   *****")
 
     py.quit()  # pylint: disable=maybe-no-member
 

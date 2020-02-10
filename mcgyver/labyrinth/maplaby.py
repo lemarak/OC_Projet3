@@ -89,8 +89,8 @@ class MapLaby():
     def random_position(self):
         """    returns a random position for the object    """
 
-        structure_split = [j for sub in self.structure for j in sub]
-        structure_floor = [position for position in structure_split
+        structure_map = [j for sub in self.structure for j in sub]
+        structure_floor = [position for position in structure_map
                            if position.type_sprite == "0"]
         position_num = random.randrange(0, len(structure_floor))
-        return structure_split[position_num]
+        return structure_floor[position_num]
