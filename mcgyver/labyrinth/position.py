@@ -43,16 +43,16 @@ class Position:
     def new_position(self, direction):
         """   return the coordonnate, in map_laby structure,
               of new position excepted after move   """
-        if direction == py.K_RIGHT:
+        if direction == py.K_RIGHT:     # pylint: disable=maybe-no-member
             x_move = self.x_sprite + 1
             y_move = self.y_sprite
-        elif direction == py.K_LEFT:
+        elif direction == py.K_LEFT:    # pylint: disable=maybe-no-member
             x_move = self.x_sprite - 1
             y_move = self.y_sprite
-        elif direction == py.K_UP:
+        elif direction == py.K_UP:      # pylint: disable=maybe-no-member
             x_move = self.x_sprite
             y_move = self.y_sprite - 1
-        elif direction == py.K_DOWN:
+        elif direction == py.K_DOWN:    # pylint: disable=maybe-no-member
             x_move = self.x_sprite
             y_move = self.y_sprite + 1
         return x_move, y_move

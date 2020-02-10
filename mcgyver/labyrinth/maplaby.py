@@ -76,6 +76,7 @@ class MapLaby():
             for position in row:
                 if position.type_sprite == to_find:
                     return position
+        return None
 
     def is_valide(self, move_x, move_y):
         """    docstring to complete    """
