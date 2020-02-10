@@ -7,8 +7,7 @@ import pygame as py
 
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
-from mcgyver.labyrinth import hero
-from mcgyver.labyrinth import guard
+from mcgyver.labyrinth import avatar
 from mcgyver.labyrinth import maplaby
 from mcgyver.labyrinth import mapobject
 
@@ -35,12 +34,12 @@ def main():
 
     # initialize, position and display the Hero
     position_hero = map_laby.find_position('D')
-    mcgyver = hero.Hero(position_hero, surface_laby)
+    mcgyver = avatar.Hero(position_hero, surface_laby)
     mcgyver.display()
 
     # initialize, position and display the Guard
     position_guard = map_laby.find_position('A')
-    bad_guy = guard.Guard(position_guard, surface_laby)
+    bad_guy = avatar.Guard(position_guard, surface_laby)
     bad_guy.display()
 
     # initialize, position and display the needle

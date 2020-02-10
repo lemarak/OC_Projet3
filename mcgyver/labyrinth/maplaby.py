@@ -62,7 +62,7 @@ class MapLaby():
         py.display.flip()
 
     def refresh_one_sprite(self, surface_laby, position):
-        """    refresh a sprite instead all the map    """
+        """    refresh just a sprite instead all the map    """
         sprite_position = (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
         surface_laby.blit(self.decor,
                           (position.x_pixel, position.y_pixel),
@@ -70,7 +70,7 @@ class MapLaby():
                           )
 
     def find_position(self, to_find):
-        """    return the position of to_find from structure
+        """    return the position to_find from structure,
                to_find = type_sprite    """
         for row in self.structure:
             for position in row:
