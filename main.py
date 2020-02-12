@@ -7,9 +7,8 @@ import pygame as py
 
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
-from mcgyver.labyrinth import avatar
 from mcgyver.labyrinth import maplaby
-from mcgyver.labyrinth import mapobject
+from mcgyver.labyrinth import mapelement
 
 
 def main():
@@ -34,27 +33,27 @@ def main():
 
     # initialize, position and display the Hero
     position_hero = map_laby.find_position('D')
-    mcgyver = avatar.Hero(position_hero, surface_laby)
+    mcgyver = mapelement.Hero(position_hero, surface_laby)
     mcgyver.display()
 
     # initialize, position and display the Guard
     position_guard = map_laby.find_position('A')
-    bad_guy = avatar.Guard(position_guard, surface_laby)
+    bad_guy = mapelement.Guard(position_guard, surface_laby)
     bad_guy.display()
 
     # initialize, position and display the needle
     position_aleatoire = map_laby.random_position()
-    needle = mapobject.Needle(position_aleatoire, surface_laby)
+    needle = mapelement.Needle(position_aleatoire, surface_laby)
     needle.display()
 
     # initialize, position and display the tube
     position_aleatoire = map_laby.random_position()
-    tube = mapobject.Tube(position_aleatoire, surface_laby)
+    tube = mapelement.Tube(position_aleatoire, surface_laby)
     tube.display()
 
     # initialize, position and display the ether
     position_aleatoire = map_laby.random_position()
-    ether = mapobject.Ether(position_aleatoire, surface_laby)
+    ether = mapelement.Ether(position_aleatoire, surface_laby)
     ether.display()
 
     objects_array = [needle, tube, ether]
