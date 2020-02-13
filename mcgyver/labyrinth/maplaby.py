@@ -3,7 +3,6 @@
 
 """    Class Map    """
 
-import random
 import pygame as py
 
 from mcgyver.common import config as c
@@ -69,15 +68,6 @@ class MapLaby():
                           (sprite_position)
                           )
 
-    def find_position(self, to_find):
-        """    return the position to_find from structure,
-               to_find = type_sprite    """
-        for row in self.structure:
-            for position in row:
-                if position.type_sprite == to_find:
-                    return position
-        return None
-
     def is_valide(self, move_x, move_y):
         """    docstring to complete    """
         if move_x < 0 or move_x >= c.NB_SPRITES \
@@ -86,12 +76,3 @@ class MapLaby():
         if self.structure[move_y][move_x].type_sprite == 'w':
             return False
         return True
-
-    def random_position(self):
-        """    returns a random position for the object    """
-
-        structure_map = [j for sub in self.structure for j in sub]
-        structure_floor = [position for position in structure_map
-                           if position.type_sprite == "0"]
-        position_num = random.randrange(0, len(structure_floor))
-        return structure_floor[position_num]

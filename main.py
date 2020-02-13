@@ -31,30 +31,17 @@ def main():
     # display map structure
     map_laby.display_map(surface_laby)
 
-    # initialize, position and display the Hero
-    position_hero = map_laby.find_position('D')
-    mcgyver = mapelement.Hero(position_hero, surface_laby)
-    mcgyver.display()
-
-    # initialize, position and display the Guard
-    position_guard = map_laby.find_position('A')
-    bad_guy = mapelement.Guard(position_guard, surface_laby)
-    bad_guy.display()
-
-    # initialize, position and display the needle
-    position_aleatoire = map_laby.random_position()
-    needle = mapelement.Needle(position_aleatoire, surface_laby)
-    needle.display()
-
-    # initialize, position and display the tube
-    position_aleatoire = map_laby.random_position()
-    tube = mapelement.Tube(position_aleatoire, surface_laby)
-    tube.display()
-
-    # initialize, position and display the ether
-    position_aleatoire = map_laby.random_position()
-    ether = mapelement.Ether(position_aleatoire, surface_laby)
-    ether.display()
+    # initialize, position and display the Avatar and objects
+    mcgyver = mapelement.Hero(surface_laby,
+                              map_laby.structure)
+    bad_guy = mapelement.Guard(surface_laby,
+                               map_laby.structure)
+    needle = mapelement.Needle(surface_laby,
+                               map_laby.structure)
+    tube = mapelement.Tube(surface_laby,
+                           map_laby.structure)
+    ether = mapelement.Ether(surface_laby,
+                             map_laby.structure)
 
     objects_array = [needle, tube, ether]
 
@@ -62,12 +49,14 @@ def main():
     progress = True
     while progress:
         for event in py.event.get():
-            if event.type == py.QUIT:
+            if event.type == py.QUIT:  # pylint: disable=maybe-no-member
                 progress = False
-            if event.type == py.KEYDOWN:
-                if event.key == py.K_ESCAPE:
+            if event.type == py.KEYDOWN:  # pylint: disable=maybe-no-member
+                if event.key == py.K_ESCAPE:  # pylint: disable=maybe-no-member
                     progress = False
-                elif event.key in [py.K_RIGHT, py.K_LEFT, py.K_UP, py.K_DOWN]:
+                elif event.key in \
+                        [py.K_RIGHT, py.K_LEFT,  # pylint: disable=maybe-no-member
+                         py.K_UP, py.K_DOWN]:   # pylint: disable=maybe-no-member
                     new_x, new_y = mcgyver.position.new_position(event.key)
                     if map_laby.is_valide(new_x, new_y):
                         new_position = map_laby.structure[new_y][new_x]
