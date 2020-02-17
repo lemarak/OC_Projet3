@@ -40,15 +40,28 @@ def display_title(nb_objects, message=""):
 def display_end(surface_laby, win, position):
     """   display the end of game,
             choose die or win pucture and display it   """
-    end_picture = py.image.load(
+    end_picture_sprite = py.image.load(
         picture_file_path(c.IMG_END)).convert_alpha()
     if win:
+        # You win
         sprite_position = (c.X_WIN, c.Y_WIN, c.SIZE_SPRITE, c.SIZE_SPRITE)
+        end_picture_board = py.transform.scale2x(
+            py.image.load(
+                picture_file_path(c.IMG_WIN))).convert()
     else:
+        # You die
         sprite_position = (c.X_DIE, c.Y_DIE, c.SIZE_SPRITE, c.SIZE_SPRITE)
+        end_picture_board = py.transform.scale2x(
+            py.image.load(
+                picture_file_path(c.IMG_DIE))).convert()
 
-    surface_laby.blit(end_picture,
+    surface_laby.blit(end_picture_sprite,
                       (position.x_pixel, position.y_pixel),
                       (sprite_position)
                       )
+    py.display.flip()
+
+    py.time.delay(1000)
+
+    surface_laby.blit(end_picture_board, (75, 75))
     py.display.flip()

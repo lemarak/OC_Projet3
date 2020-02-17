@@ -48,6 +48,8 @@ def main():
 
     # pymap event management
     progress = True
+    end_of_game = False
+
     while progress:
         for event in py.event.get():
             if event.type == py.QUIT:  # pylint: disable=maybe-no-member
@@ -55,7 +57,7 @@ def main():
             if event.type == py.KEYDOWN:  # pylint: disable=maybe-no-member
                 if event.key == py.K_ESCAPE:  # pylint: disable=maybe-no-member
                     progress = False
-                elif event.key in \
+                elif not end_of_game and event.key in \
                         [py.K_RIGHT,    # pylint: disable=maybe-no-member
                          py.K_LEFT,  # pylint: disable=maybe-no-member
                          py.K_UP,  # pylint: disable=maybe-no-member
@@ -72,8 +74,8 @@ def main():
                         if mcgyver.position == bad_guy.position:
                             f.display_title(mcgyver.nb_objects, "end")
                             win = (mcgyver.nb_objects == 3)
-                            f.display_end(surface_laby, win,
-                                          mcgyver.position)
+                            f.display_end(surface_laby, win, mcgyver.position)
+                            end_of_game = True
 
     py.quit()  # pylint: disable=maybe-no-member
 

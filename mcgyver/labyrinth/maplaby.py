@@ -14,9 +14,9 @@ class MapLaby():
     """    Class Map    """
 
     def __init__(self, file_grid):
-        self.map_file = file_grid
         self.structure = []
-        self.decor = py.transform.scale2x(
+        self.__map_file = file_grid
+        self.__decor = py.transform.scale2x(
             py.image.load(
                 f.picture_file_path(c.IMG_DECOR)
             )).convert()
@@ -26,7 +26,7 @@ class MapLaby():
     def generate_structure(self):
         """    generate the labyrinth structure   """
 
-        with open(self.map_file, 'r') as fil:  # open the file
+        with open(self.__map_file, 'r') as fil:  # open the file
             structure_grid = []
             pos_y = 0
             for row in fil:     # read each row of the file
@@ -53,7 +53,7 @@ class MapLaby():
                     sprite_position = (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
 
                 if sprite_position:
-                    surface_laby.blit(self.decor,
+                    surface_laby.blit(self.__decor,
                                       (position.x_pixel, position.y_pixel),
                                       (sprite_position)
                                       )
@@ -63,7 +63,7 @@ class MapLaby():
     def refresh_one_sprite(self, surface_laby, position):
         """    refresh just a sprite instead all the map    """
         sprite_position = (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
-        surface_laby.blit(self.decor,
+        surface_laby.blit(self.__decor,
                           (position.x_pixel, position.y_pixel),
                           (sprite_position)
                           )

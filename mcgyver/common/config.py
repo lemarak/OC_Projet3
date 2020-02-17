@@ -22,12 +22,14 @@ IMG_NEEDLE = "aiguille.png"
 IMG_TUBE = "tube_plastique.png"
 IMG_DECOR = "floor-tiles-20x20.png"
 IMG_END = "items.png"
+IMG_DIE = "you_die.png"
+IMG_WIN = "you_win.jfif"
 
 # position pictures in floor-tiles-20x20.png
-X_WALL = 40
+X_WALL = 200
 Y_WALL = 0
-X_FLOOR = 200
-Y_FLOOR = 20
+X_FLOOR = 0
+Y_FLOOR = 100
 
 # position pictures in items.png
 X_WIN = 80
