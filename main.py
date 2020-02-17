@@ -26,17 +26,16 @@ def main():
     # generate the structure of the labyrinth from a text file
     path_file_structure = f.grid_file_path("grid.txt")
     map_laby = maplaby.MapLaby(path_file_structure)
-    map_laby.generate_structure()
+    maplaby.MapLaby.generate_structure()
 
     # display map structure
     map_laby.display_map(surface_laby)
 
     # initialize, position and display the Avatar and objects
     # todo: refactoring
-    position = map_laby.find_position('D')
-    mcgyver = mapelement.Hero(surface_laby, position)
-    position = map_laby.find_position('A')
-    bad_guy = mapelement.Guard(surface_laby, position)
+
+    mcgyver = f.create_avatar(surface_laby, 'D')
+    bad_guy = f.create_avatar(surface_laby, 'A')
     position = map_laby.random_position()
     needle = mapelement.Needle(surface_laby, position)
     position = map_laby.random_position()
@@ -65,7 +64,7 @@ def main():
                          py.K_DOWN]:  # pylint: disable=maybe-no-member
                     new_x, new_y = mcgyver.position.new_position(event.key)
                     if map_laby.is_valide(new_x, new_y):
-                        new_position = map_laby.structure[new_y][new_x]
+                        new_position = maplaby.MapLaby.STRUCTURE[new_y][new_x]
                         map_laby.refresh_one_sprite(surface_laby,
                                                     mcgyver.position)
                         mcgyver.position = new_position
