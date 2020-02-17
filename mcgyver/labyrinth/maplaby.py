@@ -3,6 +3,7 @@
 
 """    Class Map    """
 
+import random
 import pygame as py
 
 from mcgyver.common import config as c
@@ -60,6 +61,15 @@ class MapLaby():
 
         py.display.flip()
 
+    def random_position(self):
+        """    returns a random position for the object    """
+        # flat the list structure and keep only floor "type_sprite" = 0
+        structure_map = [j for sub in self.structure for j in sub]
+        structure_floor = [position for position in structure_map
+                           if position.type_sprite == "0"]
+        position_num = random.randrange(0, len(structure_floor))
+        return structure_floor[position_num]
+
     def refresh_one_sprite(self, surface_laby, position):
         """    refresh just a sprite instead all the map    """
         sprite_position = (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
@@ -67,6 +77,15 @@ class MapLaby():
                           (position.x_pixel, position.y_pixel),
                           (sprite_position)
                           )
+
+    def find_position(self, to_find):
+        """    return the position to_find from structure,
+               to_find = type_sprite    """
+        for row in self.structure:
+            for position in row:
+                if position.type_sprite == to_find:
+                    return position
+        return None
 
     def is_valide(self, move_x, move_y):
         """    check if the new position is valid,

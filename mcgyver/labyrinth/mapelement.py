@@ -3,7 +3,6 @@
 
 """    class to implements objects (avatar and objects to find)    """
 
-import random
 import pygame as py
 
 from mcgyver.common import config as c
@@ -15,11 +14,10 @@ from mcgyver.common import functions as f
 class MapElement:
     """    parent Class to implement objects    """
 
-    def __init__(self, surface_laby, structure_map):
+    def __init__(self, surface_laby, position):
         """    constructor    """
         self.surface_laby = surface_laby
-        self.structure_map = structure_map
-        self.position = None
+        self.position = position
         self.img_element = None
 
     def display(self):
@@ -28,24 +26,6 @@ class MapElement:
                                                   self.position.y_pixel))
         py.display.flip()
 
-    def random_position(self):
-        """    returns a random position for the object    """
-        # flat the list structure and keep only floor "type_sprite" = 0
-        structure_map = [j for sub in self.structure_map for j in sub]
-        structure_floor = [position for position in structure_map
-                           if position.type_sprite == "0"]
-        position_num = random.randrange(0, len(structure_floor))
-        return structure_floor[position_num]
-
-    def find_position(self, to_find):
-        """    return the position to_find from structure,
-               to_find = type_sprite    """
-        for row in self.structure_map:
-            for position in row:
-                if position.type_sprite == to_find:
-                    return position
-        return None
-
 
 class Guard(MapElement):
 
@@ -53,11 +33,10 @@ class Guard(MapElement):
     Class to implement the guard
     """
 
-    def __init__(self, surface_laby, structure_map):
-        MapElement.__init__(self, surface_laby, structure_map)
+    def __init__(self, surface_laby, position):
+        MapElement.__init__(self, surface_laby, position)
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_GUARD)).convert()
-        self.position = self.find_position('A')
         self.display()
 
 
@@ -67,12 +46,11 @@ class Hero(MapElement):
     class to implement the Hero (MacGyver)
     """
 
-    def __init__(self, surface_laby, structure_map):
-        MapElement.__init__(self, surface_laby, structure_map)
+    def __init__(self, surface_laby, position):
+        MapElement.__init__(self, surface_laby, position)
         self.objects = []
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_HERO)).convert()
-        self.position = self.find_position('D')
         self.display()
 
     def check_object(self, objects_array):
@@ -92,9 +70,8 @@ class Hero(MapElement):
 class Needle(MapElement):
     """    Child Class needle from MapElement    """
 
-    def __init__(self, surface_laby, structure_map):
-        MapElement.__init__(self, surface_laby, structure_map)
-        self.position = self.random_position()
+    def __init__(self, surface_laby, position):
+        MapElement.__init__(self, surface_laby, position)
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_NEEDLE)).convert()
         self.display()
@@ -103,9 +80,8 @@ class Needle(MapElement):
 class Tube(MapElement):
     """    Child Class for tube    """
 
-    def __init__(self, surface_laby, structure_map):
-        MapElement.__init__(self, surface_laby, structure_map)
-        self.position = self.random_position()
+    def __init__(self, surface_laby, position):
+        MapElement.__init__(self, surface_laby, position)
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_TUBE)).convert_alpha()
         self.display()
@@ -114,9 +90,8 @@ class Tube(MapElement):
 class Ether(MapElement):
     """    Child Class for ether    """
 
-    def __init__(self, surface_laby, structure_map):
-        MapElement.__init__(self, surface_laby, structure_map)
-        self.position = self.random_position()
+    def __init__(self, surface_laby, position):
+        MapElement.__init__(self, surface_laby, position)
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_ETHER)).convert_alpha()
         self.display()

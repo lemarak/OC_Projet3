@@ -32,16 +32,17 @@ def main():
     map_laby.display_map(surface_laby)
 
     # initialize, position and display the Avatar and objects
-    mcgyver = mapelement.Hero(surface_laby,
-                              map_laby.structure)
-    bad_guy = mapelement.Guard(surface_laby,
-                               map_laby.structure)
-    needle = mapelement.Needle(surface_laby,
-                               map_laby.structure)
-    tube = mapelement.Tube(surface_laby,
-                           map_laby.structure)
-    ether = mapelement.Ether(surface_laby,
-                             map_laby.structure)
+    # todo: refactoring
+    position = map_laby.find_position('D')
+    mcgyver = mapelement.Hero(surface_laby, position)
+    position = map_laby.find_position('A')
+    bad_guy = mapelement.Guard(surface_laby, position)
+    position = map_laby.random_position()
+    needle = mapelement.Needle(surface_laby, position)
+    position = map_laby.random_position()
+    tube = mapelement.Tube(surface_laby, position)
+    position = map_laby.random_position()
+    ether = mapelement.Ether(surface_laby, position)
 
     objects_array = [needle, tube, ether]
     f.display_title(mcgyver.nb_objects)
