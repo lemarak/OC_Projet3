@@ -21,12 +21,19 @@ IMG_ETHER = "ether.png"
 IMG_NEEDLE = "aiguille.png"
 IMG_TUBE = "tube_plastique.png"
 IMG_DECOR = "floor-tiles-20x20.png"
+IMG_END = "items.png"
 
 # position pictures in floor-tiles-20x20.png
 X_WALL = 40
 Y_WALL = 0
 X_FLOOR = 200
 Y_FLOOR = 20
+
+# position pictures in items.png
+X_WIN = 80
+Y_WIN = 0
+X_DIE = 280
+Y_DIE = 0
 
 # others
 TXT_TITLE = "Help Mac Gyver"

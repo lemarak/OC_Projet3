@@ -19,8 +19,8 @@ def main():
     # labyrinth initialisation, surface_laby type(surface)
     surface_laby = py.display.set_mode((c.WINDOW_SIZE,
                                         c.WINDOW_SIZE))
-    py.display.set_caption(c.TXT_TITLE)
-    icon = py.image.load(f.picture_file_path(c.IMG_ICON)).convert()
+
+    icon = py.image.load(f.picture_file_path(c.IMG_ICON))
     py.display.set_icon(icon)
 
     # generate the structure of the labyrinth from a text file
@@ -44,6 +44,7 @@ def main():
                              map_laby.structure)
 
     objects_array = [needle, tube, ether]
+    f.display_title(mcgyver.nb_objects)
 
     # pymap event management
     progress = True
@@ -55,8 +56,10 @@ def main():
                 if event.key == py.K_ESCAPE:  # pylint: disable=maybe-no-member
                     progress = False
                 elif event.key in \
-                        [py.K_RIGHT, py.K_LEFT,  # pylint: disable=maybe-no-member
-                         py.K_UP, py.K_DOWN]:   # pylint: disable=maybe-no-member
+                        [py.K_RIGHT,    # pylint: disable=maybe-no-member
+                         py.K_LEFT,  # pylint: disable=maybe-no-member
+                         py.K_UP,  # pylint: disable=maybe-no-member
+                         py.K_DOWN]:  # pylint: disable=maybe-no-member
                     new_x, new_y = mcgyver.position.new_position(event.key)
                     if map_laby.is_valide(new_x, new_y):
                         new_position = map_laby.structure[new_y][new_x]
@@ -64,12 +67,13 @@ def main():
                                                     mcgyver.position)
                         mcgyver.position = new_position
                         mcgyver.display()
-                        mcgyver.check_object(objects_array)
+                        if mcgyver.check_object(objects_array):
+                            f.display_title(mcgyver.nb_objects)
                         if mcgyver.position == bad_guy.position:
-                            if mcgyver.nb_objects == 3:
-                                print("******   WIN !!!   *****")
-                            else:
-                                print("******   DEAD !!!   *****")
+                            f.display_title(mcgyver.nb_objects, "end")
+                            win = (mcgyver.nb_objects == 3)
+                            f.display_end(surface_laby, win,
+                                          mcgyver.position)
 
     py.quit()  # pylint: disable=maybe-no-member
 

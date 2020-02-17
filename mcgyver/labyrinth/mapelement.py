@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-"""    class to implements objects    """
+"""    class to implements objects (avatar and objects to find)    """
 
 import random
 import pygame as py
@@ -80,7 +80,8 @@ class Hero(MapElement):
         for obj in objects_array:
             if self.position == obj.position and obj not in self.objects:
                 self.objects.append(obj)
-                print("McGyver objects :", self.nb_objects)
+                return True
+        return False
 
     @property
     def nb_objects(self):

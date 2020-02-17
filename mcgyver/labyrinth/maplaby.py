@@ -69,7 +69,8 @@ class MapLaby():
                           )
 
     def is_valide(self, move_x, move_y):
-        """    docstring to complete    """
+        """    check if the new position is valid,
+               and return True or False    """
         if move_x < 0 or move_x >= c.NB_SPRITES \
                 or move_y < 0 or move_y >= c.NB_SPRITES:
             return False
