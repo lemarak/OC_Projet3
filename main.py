@@ -8,6 +8,7 @@ import pygame as py
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
 from mcgyver.labyrinth.maplaby import MapLaby
+from mcgyver.labyrinth.mapelement import Hero, Guard
 from mcgyver.labyrinth.mapelement import Needle, Tube, Ether
 
 
@@ -25,22 +26,18 @@ def main():
 
     # generate the structure of the labyrinth from a text file
     path_file_structure = f.grid_file_path("grid.txt")
-    map_laby = MapLaby(path_file_structure)
+    map_laby = MapLaby(path_file_structure, surface_laby)
 
     # display map structure
-    map_laby.display_map(surface_laby)
+    map_laby.display_map()
 
     # initialize, position and display the Avatar and objects
-    # todo: refactoring
 
-    mcgyver = f.create_avatar(surface_laby, 'D')
-    bad_guy = f.create_avatar(surface_laby, 'A')
-    position = map_laby.random_position()
-    needle = Needle(surface_laby, position)
-    position = map_laby.random_position()
-    tube = Tube(surface_laby, position)
-    position = map_laby.random_position()
-    ether = Ether(surface_laby, position)
+    mcgyver = Hero(map_laby)
+    Guard(map_laby)
+    needle = Needle(map_laby)
+    tube = Tube(map_laby)
+    ether = Ether(map_laby)
 
     objects_array = [needle, tube, ether]
     f.display_title(mcgyver.nb_objects)
@@ -53,7 +50,9 @@ def main():
         for event in py.event.get():
             if event.type == py.QUIT:  # pylint: disable=maybe-no-member
                 progress = False
+
             if event.type == py.KEYDOWN:  # pylint: disable=maybe-no-member
+
                 if event.key == py.K_ESCAPE:  # pylint: disable=maybe-no-member
                     progress = False
                 elif not end_of_game and event.key in \
@@ -61,15 +60,18 @@ def main():
                          py.K_LEFT,  # pylint: disable=maybe-no-member
                          py.K_UP,  # pylint: disable=maybe-no-member
                          py.K_DOWN]:  # pylint: disable=maybe-no-member
+
                     new_position = mcgyver.position.new_position(event.key)
+
                     if map_laby.is_valide(new_position):
-                        map_laby.refresh_one_sprite(surface_laby,
-                                                    mcgyver.position)
+                        map_laby.refresh_one_sprite(mcgyver.position)
                         mcgyver.position = new_position
-                        mcgyver.display()
+                        map_laby.display_element(mcgyver)
+
                         if mcgyver.check_object(objects_array):
                             f.display_title(mcgyver.nb_objects)
-                        if mcgyver.position == bad_guy.position:
+
+                        if mcgyver.position == map_laby.end:
                             f.display_title(mcgyver.nb_objects, "end")
                             win = (mcgyver.nb_objects == 3)
                             f.display_end(surface_laby, win, mcgyver.position)

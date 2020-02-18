@@ -6,8 +6,6 @@
 from os import path
 import pygame as py
 
-from mcgyver.labyrinth.mapelement import Hero, Guard
-from mcgyver.labyrinth.maplaby import MapLaby
 from ..common import config as c
 
 
@@ -37,16 +35,6 @@ def display_title(nb_objects, message=""):
                                                 nb_objects, message)
     py.display.set_caption(title_map)
     py.display.flip()
-
-
-def create_avatar(surface_laby, sprite_avatar):
-    """    create and display avatar
-           sprite_avatar = 'D' for Hero,
-                         = 'A' for Guard    """
-    position = MapLaby.find_position(sprite_avatar)
-    if sprite_avatar == 'D':
-        return Hero(surface_laby, position)
-    return Guard(surface_laby, position)
 
 
 def display_end(surface_laby, win, position):

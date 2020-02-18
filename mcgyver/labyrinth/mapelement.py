@@ -8,36 +8,13 @@ import pygame as py
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
 
-# from mcgyver.labyrinth import position as pos
-
 
 class MapElement:
     """    parent Class to implement objects    """
 
-    def __init__(self, surface_laby, position):
+    def __init__(self, map_laby):
         """    constructor    """
-        self.surface_laby = surface_laby
-        self.position = position
-        self.img_element = None
-
-    def display(self):
-        """    display object    """
-        self.surface_laby.blit(self.img_element, (self.position.x_pixel,
-                                                  self.position.y_pixel))
-        py.display.flip()
-
-
-class Guard(MapElement):
-
-    """
-    Class to implement the guard
-    """
-
-    def __init__(self, surface_laby, position):
-        MapElement.__init__(self, surface_laby, position)
-        self.img_element = py.image.load(
-            f.picture_file_path(c.IMG_GUARD)).convert()
-        self.display()
+        self.map_laby = map_laby
 
 
 class Hero(MapElement):
@@ -46,12 +23,13 @@ class Hero(MapElement):
     class to implement the Hero (MacGyver)
     """
 
-    def __init__(self, surface_laby, position):
-        MapElement.__init__(self, surface_laby, position)
+    def __init__(self, map_laby):
+        MapElement.__init__(self, map_laby)
+        self.position = map_laby.start
         self.objects = []
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_HERO)).convert()
-        self.display()
+        map_laby.display_element(self)
 
     def check_object(self, objects_array):
         """    check if Hero on object    """
@@ -67,31 +45,48 @@ class Hero(MapElement):
         return len(self.objects)
 
 
+class Guard(MapElement):
+
+    """
+    Class to implement the guard
+    """
+
+    def __init__(self, map_laby):
+        MapElement.__init__(self, map_laby)
+        self.position = map_laby.end
+        self.img_element = py.image.load(
+            f.picture_file_path(c.IMG_GUARD)).convert()
+        map_laby.display_element(self)
+
+
 class Needle(MapElement):
     """    Child Class needle from MapElement    """
 
-    def __init__(self, surface_laby, position):
-        MapElement.__init__(self, surface_laby, position)
+    def __init__(self, map_laby):
+        MapElement.__init__(self, map_laby)
+        self.position = map_laby.random_position()
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_NEEDLE)).convert()
-        self.display()
+        map_laby.display_element(self)
 
 
 class Tube(MapElement):
     """    Child Class for tube    """
 
-    def __init__(self, surface_laby, position):
-        MapElement.__init__(self, surface_laby, position)
+    def __init__(self, map_laby):
+        MapElement.__init__(self, map_laby)
+        self.position = map_laby.random_position()
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_TUBE)).convert_alpha()
-        self.display()
+        map_laby.display_element(self)
 
 
 class Ether(MapElement):
     """    Child Class for ether    """
 
-    def __init__(self, surface_laby, position):
-        MapElement.__init__(self, surface_laby, position)
+    def __init__(self, map_laby):
+        MapElement.__init__(self, map_laby)
+        self.position = map_laby.random_position()
         self.img_element = py.image.load(
             f.picture_file_path(c.IMG_ETHER)).convert_alpha()
-        self.display()
+        map_laby.display_element(self)
