@@ -7,8 +7,8 @@ import pygame as py
 
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
-from mcgyver.labyrinth import maplaby
-from mcgyver.labyrinth import mapelement
+from mcgyver.labyrinth.maplaby import MapLaby
+from mcgyver.labyrinth.mapelement import Needle, Tube, Ether
 
 
 def main():
@@ -25,8 +25,7 @@ def main():
 
     # generate the structure of the labyrinth from a text file
     path_file_structure = f.grid_file_path("grid.txt")
-    map_laby = maplaby.MapLaby(path_file_structure)
-    maplaby.MapLaby.generate_structure()
+    map_laby = MapLaby(path_file_structure)
 
     # display map structure
     map_laby.display_map(surface_laby)
@@ -37,18 +36,18 @@ def main():
     mcgyver = f.create_avatar(surface_laby, 'D')
     bad_guy = f.create_avatar(surface_laby, 'A')
     position = map_laby.random_position()
-    needle = mapelement.Needle(surface_laby, position)
+    needle = Needle(surface_laby, position)
     position = map_laby.random_position()
-    tube = mapelement.Tube(surface_laby, position)
+    tube = Tube(surface_laby, position)
     position = map_laby.random_position()
-    ether = mapelement.Ether(surface_laby, position)
+    ether = Ether(surface_laby, position)
 
     objects_array = [needle, tube, ether]
     f.display_title(mcgyver.nb_objects)
 
     # pymap event management
-    progress = True
-    end_of_game = False
+    progress = True     # False when the game is stopped (escape or alt-f4)
+    end_of_game = False  # True when the hero reaches his goal, he stopped move
 
     while progress:
         for event in py.event.get():
@@ -62,9 +61,8 @@ def main():
                          py.K_LEFT,  # pylint: disable=maybe-no-member
                          py.K_UP,  # pylint: disable=maybe-no-member
                          py.K_DOWN]:  # pylint: disable=maybe-no-member
-                    new_x, new_y = mcgyver.position.new_position(event.key)
-                    if map_laby.is_valide(new_x, new_y):
-                        new_position = maplaby.MapLaby.STRUCTURE[new_y][new_x]
+                    new_position = mcgyver.position.new_position(event.key)
+                    if map_laby.is_valide(new_position):
                         map_laby.refresh_one_sprite(surface_laby,
                                                     mcgyver.position)
                         mcgyver.position = new_position

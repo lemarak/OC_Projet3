@@ -9,8 +9,8 @@ from mcgyver.common import config as c
 
 class Position:
     """ Class Position
-        x_sprite
-        y_sprite
+        x_sprite = ligne position en case
+        y_sprite = colonne position en case
         type_sprite : "w" for wall, "0" for nothing...
     """
 
@@ -30,6 +30,10 @@ class Position:
                                        self.type_sprite,
                                        )
 
+    def __eq__(self, position):
+        return (self.x_sprite == position.x_sprite
+                and self.y_sprite == position.y_sprite)
+
     @property
     def x_pixel(self):
         """ position x in pixel """
@@ -37,12 +41,11 @@ class Position:
 
     @property
     def y_pixel(self):
-        """ position x in pixel """
+        """ position y in pixel """
         return self.y_sprite * c.SIZE_SPRITE
 
     def new_position(self, direction):
-        """   return the coordonnate, in map_laby structure,
-              of new position excepted after move   """
+        """   return the new position excepted after move   """
         if direction == py.K_RIGHT:     # pylint: disable=maybe-no-member
             x_move = self.x_sprite + 1
             y_move = self.y_sprite
@@ -55,4 +58,4 @@ class Position:
         elif direction == py.K_DOWN:    # pylint: disable=maybe-no-member
             x_move = self.x_sprite
             y_move = self.y_sprite + 1
-        return x_move, y_move
+        return Position(x_move, y_move, "")

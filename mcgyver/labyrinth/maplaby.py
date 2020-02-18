@@ -9,47 +9,41 @@ import pygame as py
 
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
-from mcgyver.labyrinth import position as pos
+from .position import Position
 
 
 class MapLaby():
     """    Class Map    """
     STRUCTURE = []
-    DECOR = None
-    MAP_FILE = ""
 
     def __init__(self, file_grid):
-        MapLaby.MAP_FILE = file_grid
-        MapLaby.DECOR = py.transform.scale2x(
+        self.__map_file = file_grid
+        self.__decor = py.transform.scale2x(
             py.image.load(
                 f.picture_file_path(c.IMG_DECOR)
             )).convert()
 
-    @classmethod
-    def generate_structure(cls):
+        self.generate_structure()
+
+    def generate_structure(self):
         """    generate the labyrinth structure   """
 
-        if len(cls.STRUCTURE) == 0:
-            with open(cls.MAP_FILE, 'r') as fil:  # open the file
+        if len(MapLaby.STRUCTURE) == 0:
+            with open(self.__map_file, 'r') as fil:  # open the file
                 structure_grid = []
-                pos_y = 0
-                for row in fil:     # read each row of the file
+                for pos_y, row in enumerate(fil):     # read each row
                     structure_row = []
-                    pos_x = 0
-                    for sprite in row:   # read each value in a row
+                    for pos_x, sprite in enumerate(row):  # read each value
                         if sprite != '\n':
-                            position = pos.Position(pos_x, pos_y, sprite)
-                            pos_x += 1
+                            position = Position(pos_x, pos_y, sprite)
                         structure_row.append(position)
                     structure_grid.append(structure_row)
-                    pos_y += 1
-            cls.STRUCTURE = structure_grid
+            MapLaby.STRUCTURE = structure_grid
 
-    @classmethod
-    def display_map(cls, surface_laby):
+    def display_map(self, surface_laby):
         """    display the labyrinth map   """
 
-        for row in cls.STRUCTURE:
+        for row in MapLaby.STRUCTURE:
             for position in row:
                 sprite_position = None
                 if position.type_sprite == 'w':
@@ -58,7 +52,7 @@ class MapLaby():
                     sprite_position = (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
 
                 if sprite_position:
-                    surface_laby.blit(cls.DECOR,
+                    surface_laby.blit(self.__decor,
                                       (position.x_pixel, position.y_pixel),
                                       (sprite_position)
                                       )
@@ -75,33 +69,31 @@ class MapLaby():
         position_num = random.randrange(0, len(structure_floor))
         return structure_floor[position_num]
 
-    @classmethod
-    def refresh_one_sprite(cls, surface_laby, position):
+    def refresh_one_sprite(self, surface_laby, position):
         """    refresh just a sprite instead all the map    """
         sprite_position = (c.X_FLOOR*2, c.Y_FLOOR*2, 40, 40)
-        surface_laby.blit(cls.DECOR,
+        surface_laby.blit(self.__decor,
                           (position.x_pixel, position.y_pixel),
                           (sprite_position)
                           )
 
-    @classmethod
-    def find_position(cls, to_find):
+    @staticmethod
+    def find_position(to_find):
         """    return the position to_find from structure,
                to_find = type_sprite    """
-        print("structure :", cls.STRUCTURE)
-        for row in cls.STRUCTURE:
+        for row in MapLaby.STRUCTURE:
             for position in row:
                 if position.type_sprite == to_find:
                     return position
         return None
 
-    @classmethod
-    def is_valide(cls, move_x, move_y):
+    @staticmethod
+    def is_valide(pos):
         """    check if the new position is valid,
                and return True or False    """
-        if move_x < 0 or move_x >= c.NB_SPRITES \
-                or move_y < 0 or move_y >= c.NB_SPRITES:
+        if pos.x_sprite < 0 or pos.x_sprite >= c.NB_SPRITES \
+                or pos.y_sprite < 0 or pos.y_sprite >= c.NB_SPRITES:
             return False
-        if cls.STRUCTURE[move_y][move_x].type_sprite == 'w':
+        if MapLaby.STRUCTURE[pos.y_sprite][pos.x_sprite].type_sprite == 'w':
             return False
         return True
