@@ -32,7 +32,6 @@ def main():
     map_laby.display_map()
 
     # initialize, position and display the Avatar and objects
-
     mcgyver = Hero(map_laby)
     Guard(map_laby)
     needle = Needle(map_laby)
@@ -44,7 +43,7 @@ def main():
 
     # pymap event management
     progress = True     # False when the game is stopped (escape or alt-f4)
-    end_of_game = False  # True when the hero reaches his goal, he stopped move
+    end_of_game = False  # True when the hero reaches his goal, he stops moving
 
     while progress:
         for event in py.event.get():
@@ -63,14 +62,17 @@ def main():
 
                     new_position = mcgyver.position.new_position(event.key)
 
+                    # check if the position is valid
                     if map_laby.is_valide(new_position):
                         map_laby.refresh_one_sprite(mcgyver.position)
                         mcgyver.position = new_position
                         map_laby.display_element(mcgyver)
 
+                        # test object
                         if mcgyver.check_object(objects_array):
                             f.display_title(mcgyver.nb_objects)
 
+                        # end of game
                         if mcgyver.position == map_laby.end:
                             f.display_title(mcgyver.nb_objects, "end")
                             win = (mcgyver.nb_objects == 3)

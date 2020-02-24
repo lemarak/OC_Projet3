@@ -15,6 +15,8 @@ class MapElement:
     def __init__(self, map_laby):
         """    constructor    """
         self.map_laby = map_laby
+        self.position = None
+        self.img_element = None
 
 
 class Hero(MapElement):
@@ -32,7 +34,7 @@ class Hero(MapElement):
         map_laby.display_element(self)
 
     def check_object(self, objects_array):
-        """    check if Hero on object    """
+        """    check if Hero position on object    """
         for obj in objects_array:
             if self.position == obj.position and obj not in self.objects:
                 self.objects.append(obj)

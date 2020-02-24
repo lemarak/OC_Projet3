@@ -13,10 +13,8 @@ from .position import Position
 
 
 class MapLaby():
-    """    Class Map    """
-    # STRUCTURE = []
-    # START = ""
-    # END = ""
+    """    Class Map
+           Labyrinth structure    """
 
     def __init__(self, file_grid, surface_laby):
         self.__map_file = file_grid
@@ -26,8 +24,16 @@ class MapLaby():
             )).convert()
         self.__surface_laby = surface_laby
         self.structure = self.generate_structure()
-        self.start = self.find_position('D')
-        self.end = self.find_position('A')
+
+    @property
+    def start(self):
+        """   returns the start position   """
+        return self.find_position('D')
+
+    @property
+    def end(self):
+        """   returns the end position   """
+        return self.find_position('A')
 
     def generate_structure(self):
         """    generate the labyrinth structure   """
