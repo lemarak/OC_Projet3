@@ -7,9 +7,9 @@ import pygame as py
 
 from mcgyver.common import config as c
 from mcgyver.common import functions as f
-from mcgyver.labyrinth.maplaby import MapLaby
-from mcgyver.labyrinth.mapelement import Hero, Guard
-from mcgyver.labyrinth.mapelement import Needle, Tube, Ether
+from mcgyver.labyrinth.map_laby import MapLaby
+from mcgyver.labyrinth.map_element import Hero, Guard
+from mcgyver.labyrinth.map_element import Needle, Tube, Ether
 
 
 def main():
@@ -78,6 +78,9 @@ def main():
                             win = (mcgyver.nb_objects == 3)
                             f.display_end(surface_laby, win, mcgyver.position)
                             end_of_game = True
+
+                            py.time.delay(2000)
+                            progress = False
 
     py.quit()  # pylint: disable=maybe-no-member
 

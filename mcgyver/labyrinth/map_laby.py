@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-# coding: utf-8
+# -*- coding: utf-8 -*-
 
 """    Class Map
        STRUCTURE = 2D list of positions    """
@@ -41,17 +41,15 @@ class MapLaby():
         with open(self.__map_file, 'r') as fil:  # open the file
             structure_grid = []
             for pos_y, row in enumerate(fil):     # read each row
-                structure_row = []
-                for pos_x, sprite in enumerate(row):  # read each value
-                    if sprite != '\n':
-                        position = Position(pos_x, pos_y, sprite)
-                    structure_row.append(position)
+                structure_row = [Position(pos_x, pos_y, sprite)
+                                 for pos_x, sprite in enumerate(row)
+                                 if sprite != '\n']
                 structure_grid.append(structure_row)
         return structure_grid
 
     def display_map(self):
         """    display the labyrinth map   """
-
+        # browse the structure
         for row in self.structure:
             for position in row:
                 sprite_position = None
@@ -89,17 +87,19 @@ class MapLaby():
         structure_map = [j for sub in self.structure for j in sub]
         structure_floor = [position for position in structure_map
                            if position.type_sprite == "0"]
-        position_num = random.randrange(0, len(structure_floor))
-        return structure_floor[position_num]
+        position = random.choice(structure_floor)
+        return position
 
     def find_position(self, to_find):
         """    return the position to_find from structure,
-               to_find = type_sprite    """
-        for row in self.structure:
-            for position in row:
-                if position.type_sprite == to_find:
-                    return position
-        return None
+               to_find = type_sprite
+               unique occurence    """
+        structure_map = [j for sub in self.structure for j in sub]
+        positions = [position for position in structure_map
+                     if position.type_sprite == to_find]
+        if len(positions) != 1:
+            raise ValueError('incorrect structure !')
+        return positions[0]
 
     def is_valide(self, pos):
         """    check if the new position is valid,
